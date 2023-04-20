@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jbbroup</groupId>
+	<artifactId>Example02__clase02</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<!-- config JDK  -->
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+	</properties>
+	<dependencies>
+		<!-- junit-->
+		<!--https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+		import org.junit.jupiter.api.AfterEach;
+		import org.junit.jupiter.api.Assertions;
+		import org.junit.jupiter.api.BeforeAll;
+		import org.junit.jupiter.api.BeforeEach;
+		import org.junit.jupiter.api.Order;
+		import org.junit.jupiter.api.Test;
+		import org.junit.jupiter.api.TestMethodOrder;
+		import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;		
+		 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.9.2</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- selenium web driver-->
+		<!--https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java 		
+		import org.openqa.selenium.WebDriver;
+		import org.openqa.selenium.chrome.ChromeDriver;
+		-->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.8.3</version>
+		</dependency>
+		<!-- webdrivermanager para la descarga de los drivers for chrome.
+		firefox etc-->
+		<!--
+		https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+		import io.github.bonigarcia.wdm.WebDriverManager;
+		-->
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>5.3.2</version>
+		</dependency>
+	</dependencies>
+
+</project>
