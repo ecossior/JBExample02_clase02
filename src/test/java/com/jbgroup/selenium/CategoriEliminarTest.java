@@ -1,5 +1,7 @@
 package com.jbgroup.selenium;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,7 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class CategoriInsertarTest {
+public class CategoriEliminarTest {
 	
 	WebDriver driver;
 	
@@ -28,14 +30,16 @@ public class CategoriInsertarTest {
 	}
 	
 	@Test
-	void registrarCategoriaExitodaTest() throws InterruptedException {
+	void eliminarCategoriaTest() throws InterruptedException {
 		driver.get("http://localhost:8080/VisorWeb/index.xhtml");
 		WebElement userTxt = driver.findElement(By.id("txtUsuario"));
 		userTxt.clear();
 		userTxt.sendKeys("admin");
+		
 		WebElement pwdTxt = driver.findElement(By.id("txtClave"));
 		pwdTxt.clear();
 		pwdTxt.sendKeys("clave");
+		
 		WebElement sesionBtn = driver.findElement(By.name("btnIniciarSesion"));
 		sesionBtn.click();
 		
@@ -53,53 +57,51 @@ public class CategoriInsertarTest {
 		WebElement menuModAlmacen = driver.findElement(By.xpath("//span[contains(.,'Mod. de Almacén')]"));
 		menuModAlmacen.click();
 		
-		
 		Thread.sleep(2000);
 		WebElement menuCategoria = driver.findElement(By.xpath("//a[.='Mnt. de Categoría']"));
 		menuCategoria.click();
 		
-		Thread.sleep(5000);
-		WebElement nuevoBtn = driver.findElement(By.name("btnNuevo"));
-		nuevoBtn.click();
+		/*
+		Thread.sleep(2000);
+		String itemToSearch = "GALLETAS";
+		WebElement filtrarTxt = driver.findElement(By.id("txtFiltro"));
+		filtrarTxt.clear();
+		filtrarTxt.sendKeys(itemToSearch);
+		*/
+		
+		WebElement filtrarBtn = driver.findElement(By.name("btnFiltrar"));
+		filtrarBtn.click();
 		
 		Thread.sleep(2000);
-		WebElement nombreTxt = driver.findElement(By.id("txtNombre"));
-		nombreTxt.sendKeys("HELADO DE CHOCOLATES");
-		
+		WebElement ultimaFila =driver.findElement(By.xpath("//tbody[@id='tablaCategorias_data']/tr[last()]"));
+		ultimaFila.click();
+						
+		WebElement elimiarBtn = driver.findElement(By.id("btnEliminar"));
+		elimiarBtn.click();
 		
 		Thread.sleep(2000);
-		WebElement guardarBtn = driver.findElement(By.name("btnGuardar"));
-		guardarBtn.click();
+		WebElement siBtn = driver.findElement(By.id("btnSi"));
+		siBtn.click();
+
 		
-		
-		//way 1
 		Thread.sleep(2000);
-		WebElement infoIcon = driver.findElement(By.className("ui-messages-info-summary"));
-		String actualMesasge =infoIcon.getText();
-		String expecMessage = "Se guardó de manera correcta la Categoría";		
-		System.out.println("actual label :" + actualMesasge);		
-		Assertions.assertEquals(expecMessage, actualMesasge);
-		
-		
-		//way 2
-		Thread.sleep(2000);
-		WebElement infoMessage = driver.findElement(By.xpath("//span[.='Se guardó de manera correcta la Categoría']"));
-		Boolean resp =infoMessage.isDisplayed();				
-		System.out.println("actual label :" + resp);		
-		Assertions.assertTrue(resp);
+		String valorEsperado = "Se eliminó de manera correcta la Categoría";
+		String valorObtenido = driver.findElement(By.xpath("//span[@class='ui-messages-info-summary']")).getText();
+		Assertions.assertEquals(valorEsperado, valorObtenido);		
 	}
 	
 	
 	@Test
-	void registrarCategoriaConDatosVaciosTest() throws InterruptedException {
-		
+	void eliminarCategoriaSinSeleccionarRegistroTest() throws InterruptedException {
 		driver.get("http://localhost:8080/VisorWeb/index.xhtml");
 		WebElement userTxt = driver.findElement(By.id("txtUsuario"));
 		userTxt.clear();
 		userTxt.sendKeys("admin");
+		
 		WebElement pwdTxt = driver.findElement(By.id("txtClave"));
 		pwdTxt.clear();
 		pwdTxt.sendKeys("clave");
+		
 		WebElement sesionBtn = driver.findElement(By.name("btnIniciarSesion"));
 		sesionBtn.click();
 		
@@ -107,8 +109,7 @@ public class CategoriInsertarTest {
 		String expecTitle ="Bienvenido(a) al Sistema Visor de Almacén";
 		WebElement actualTitle = driver.findElement(By.xpath("//div[@class='title-main']"));		
 		Assertions.assertEquals(expecTitle, actualTitle.getText());
-		
-		
+				
 		Thread.sleep(2000);
 		WebElement menu = driver.findElement(By.xpath("//div[@class='menu']/div"));
 		menu.click();
@@ -117,41 +118,26 @@ public class CategoriInsertarTest {
 		WebElement menuModAlmacen = driver.findElement(By.xpath("//span[contains(.,'Mod. de Almacén')]"));
 		menuModAlmacen.click();
 		
-		
 		Thread.sleep(2000);
 		WebElement menuCategoria = driver.findElement(By.xpath("//a[.='Mnt. de Categoría']"));
 		menuCategoria.click();
 		
-		Thread.sleep(5000);
-		WebElement nuevoBtn = driver.findElement(By.name("btnNuevo"));
-		nuevoBtn.click();
+		WebElement elimiarBtn = driver.findElement(By.id("btnEliminar"));
+		elimiarBtn.click();
 		
 		Thread.sleep(2000);
-		WebElement nombreTxt = driver.findElement(By.id("txtNombre"));
-		nombreTxt.sendKeys("");
-		
+		WebElement siBtn = driver.findElement(By.id("btnSi"));
+		siBtn.click();
 		
 		Thread.sleep(2000);
-		WebElement guardarBtn = driver.findElement(By.name("btnGuardar"));
-		guardarBtn.click();
-		
-		
-		//way 1
-		Thread.sleep(2000);
-		WebElement infoIcon = driver.findElement(By.className("ui-messages-error-summary"));
-		String actualMesasge =infoIcon.getText();
-		String expecMessage = "Nombre: Validation Error: Value is required.";		
-		System.out.println("actual label :" + actualMesasge);		
-		Assertions.assertEquals(expecMessage, actualMesasge);
-		
-		
-		//way 2
-		Thread.sleep(2000);
-		WebElement infoMessage = driver.findElement(By.xpath("//span[.='Nombre: Validation Error: Value is required.']"));
-		Boolean resp =infoMessage.isDisplayed();				
-		System.out.println("actual label :" + resp);		
-		Assertions.assertTrue(resp);		
+		String valorEsperado = "No ha seleccionado una Categoría"; 
+		String valorObtenido = driver.findElement(By.xpath("//span[@class='ui-messages-warn-summary']")).getText();
+		Assertions.assertEquals(valorEsperado, valorObtenido);		
 	}
+	
+	
+	
+	
 	@AfterEach
 	void cerrarDriver(){
 		driver.quit();
